@@ -7,4 +7,9 @@ function KNN(kSize){
 
 
 
+KNN.prototype.train = function(trainingData){
+	this.points = this.points.concat(trainingData)
+}
+
+
 module.exports = KNN
