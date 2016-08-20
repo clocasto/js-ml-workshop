@@ -4,6 +4,7 @@ var expect = require('chai').expect;
 var mnist = require('../lib/mnist_reader');
 var writer = require('../lib/writer');
 var randomPoints = require('../lib/rand');
+var chalk = require('chalk')
 /*randomPoints is a function.  You would use it like this:
 
   var testPoints = randomPoints(100,[1,1],[2,2]);
@@ -78,7 +79,7 @@ describe('Testing the basic KNN functionality.', function(){
 
 	});
 
-	xdescribe('The predict and predictSingle function works.', function(){
+	describe('The predict and predictSingle function works.', function(){
 
 		/*If you want to build the predict & predictSingle functions from scratch, without
 		  any guidance, you can leave this as an xdescribe rather than a describe.
@@ -86,7 +87,7 @@ describe('Testing the basic KNN functionality.', function(){
 		  However, if you implement these functions, it will be much easier to write predictSingle,
 		  and they do provide a useful way to break down the things that predictSingle will need to do.
 		*/
-		xdescribe('Optional helper functions to be used in predict and predictSingle', function(){
+		describe('Optional helper functions to be used in predict and predictSingle', function(){
 
 			/* The purpose of the function '_distance' is to find the Euclidean norm
 			   as between two vectors.
@@ -132,12 +133,15 @@ describe('Testing the basic KNN functionality.', function(){
 				var knn = new KNN(10);
 				expect(typeof knn._distances).to.equal('function');
 				//Making fake data
+				//TODO: write tests for fake data.
 				var typeA = randomPoints(100,[1,1],[0,0]).map(function(n){ return [n,1] });
+				console.log(chalk.magenta(typeA[0]))
 				var typeB = randomPoints(100,[1,1],[1,0]).map(function(n){ return [n,0] });
 				var distances = knn._distances([0,0], [[[1,0],1]].concat(typeA.concat(typeB)));
 				expect(distances.length).to.equal(201);
 				expect(distances[0].length).to.equal(2);
 				expect(distances[0][0]).to.equal(1);
+				console.log(chalk.magenta(distances[1]))
 			});
 
 			/*The basic purpose of _sorted is to take the output of _distances and sort it by distance.
@@ -154,6 +158,7 @@ describe('Testing the basic KNN functionality.', function(){
 				var knn = new KNN(3);
 				expect(typeof knn._sorted).to.equal('function');
 				var sorted = knn._sorted([[100,0],[10,1],[20,1],[110,0],[120,1]]);
+				console.log(sorted);
 				expect(sorted[0]).to.equal(1)
 				expect(sorted[1]).to.equal(1)
 				expect(sorted[2]).to.equal(0)
@@ -188,7 +193,7 @@ describe('Testing the basic KNN functionality.', function(){
 		/* The purpose of predictSingle is to take a single vector
 		   and use the training-data in the knn function to predict
 		   what classification it has. */
-		it('has a predictSingle function, which takes a single vector', function(){
+		xit('has a predictSingle function, which takes a single vector', function(){
 			var knn = new KNN(10);
 			expect(typeof knn.predictSingle).to.equal('function');
 			var knn = new KNN(10);
@@ -206,7 +211,7 @@ describe('Testing the basic KNN functionality.', function(){
 		/*  This is just like predictSingle, except it applies it across
 		    an array of vectors.
 		 */
-		it('has a predict function, which takes an array of vectors', function(){
+		xit('has a predict function, which takes an array of vectors', function(){
 			var knn = new KNN(10);
 			expect(typeof knn.predict).to.equal('function');
 			//Making fake data
@@ -233,7 +238,7 @@ describe('Testing the basic KNN functionality.', function(){
 		   Why would this be?
 
 		 */
-		it('has a score function, which takes another set of the testing data and returns a number from 1 to 0', function(){
+		xit('has a score function, which takes another set of the testing data and returns a number from 1 to 0', function(){
 			var knn = new KNN(10);
 			expect(typeof knn.score).to.equal('function');
 			//Making fake data
