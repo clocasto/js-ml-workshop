@@ -193,7 +193,7 @@ describe('Testing the basic KNN functionality.', function(){
 		/* The purpose of predictSingle is to take a single vector
 		   and use the training-data in the knn function to predict
 		   what classification it has. */
-		xit('has a predictSingle function, which takes a single vector', function(){
+		it('has a predictSingle function, which takes a single vector', function(){
 			var knn = new KNN(10);
 			expect(typeof knn.predictSingle).to.equal('function');
 			var knn = new KNN(10);
@@ -211,7 +211,7 @@ describe('Testing the basic KNN functionality.', function(){
 		/*  This is just like predictSingle, except it applies it across
 		    an array of vectors.
 		 */
-		xit('has a predict function, which takes an array of vectors', function(){
+		it('has a predict function, which takes an array of vectors', function(){
 			var knn = new KNN(10);
 			expect(typeof knn.predict).to.equal('function');
 			//Making fake data
@@ -238,7 +238,7 @@ describe('Testing the basic KNN functionality.', function(){
 		   Why would this be?
 
 		 */
-		xit('has a score function, which takes another set of the testing data and returns a number from 1 to 0', function(){
+		it('has a score function, which takes another set of the testing data and returns a number from 1 to 0', function(){
 			var knn = new KNN(10);
 			expect(typeof knn.score).to.equal('function');
 			//Making fake data
@@ -250,18 +250,17 @@ describe('Testing the basic KNN functionality.', function(){
 			expect(knn.score(typeB) > 0.6).to.equal(true);
 			expect(knn.score(typeB) <= 1).to.equal(true);
 		});
-
 	});
 });
 
 
 /*Switch this to a describe after you've completed the above.*/
-xdescribe('Testing the KNN with data from the MNIST', function(){
+describe('Testing the KNN with data from the MNIST', function(){
 
 	//Need more time, to handle all the data.
 	this.timeout(10000);
 
-	xit('Can handle somewhat chaotic data', function(){
+	it('Can handle somewhat chaotic data', function(){
 		var knn = new KNN(1);
 		var typeA = randomPoints(1000,[1,1],[0,0]).map(function(n){ return [n,0] });
 		var typeB = randomPoints(1000,[1,1],[.75,0]).map(function(n){ return [n,1] });
@@ -291,10 +290,10 @@ xdescribe('Testing the KNN with data from the MNIST', function(){
 	  How could you improve accuracy of the program?
 
     */
-	xit('Can be trained off the mnist data', function(done){
+	it('Can be trained off the mnist data', function(done){
 		var allElements = mnist.allElements();			//Should load up all 5000 elements
-		var knn = new KNN(2);
-		var trainingSet = allElements.slice(0,600); 	//Make the training set
+		var knn = new KNN(5);
+		var trainingSet = allElements.slice(0, 900); 	//Make the training set
 		var testingSet = allElements.slice(1000,1100);	//Make the testing set
 		knn.train(trainingSet)
 		var score = knn.score(testingSet);

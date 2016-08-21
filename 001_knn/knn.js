@@ -1,4 +1,4 @@
-
+var chalk = require('chalk')
 //Start off with what passes the first test.
 function KNN(kSize){
 	this.kSize = kSize;
@@ -36,6 +36,59 @@ KNN.prototype._sorted = function(arrayOfDistances){
 	})
 	return sorted
 }
+
+KNN.prototype._majority = function(k, arrayOfClassifications){
+	let arr = arrayOfClassifications.slice(0, k);
+	let total = [0,0]
+	while (arr.length !== 0){
+		//get first index of array (to be compared)
+		let ele = arr[0];
+		//take out all indexes that have a value equal to arr[0]
+		let arrNew = arr.filter(a => a !== ele)
+		//the difference in lengths will give us the total number of indexes removed
+		let count = arr.length - arrNew.length;
+		//if total # is greater than previous highest, this count is new highest
+		if (count > total[1]){
+			total = [ele, count]
+		}
+		//set remaining array equal to arr, and filter again.
+		arr = arrNew
+	}
+	return total[0];
+}
+
+
+KNN.prototype.predictSingle = function(singleVector){
+	let unsortedArray = this._distances(singleVector, this.points)
+	let sortedArray = this._sorted(unsortedArray);
+	return this._majority(this.kSize, sortedArray)
+}
+
+KNN.prototype.predict = function(arrayOfVectors){
+	return arrayOfVectors.map(function(element){
+		return this.predictSingle(element)
+	}.bind(this))
+}
+
+KNN.prototype.score = function(dataToTest){
+	let masterClassifications = dataToTest.map(function(index){
+		return index[1];
+	})
+	let vectorsToPredict = dataToTest.map(function(index){
+		return index[0];
+	})
+	let output = this.predict(vectorsToPredict);
+
+	let totalSame = 0;
+
+	for (let i = 0; i < output.length; i++){
+		if (output[i] === masterClassifications[i]){
+			totalSame++
+		}
+	}
+	return totalSame / output.length
+}
+
 
 function sortingFunc(first, second){
 	return first[0] - second[0];
