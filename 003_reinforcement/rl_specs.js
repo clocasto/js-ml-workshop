@@ -21,9 +21,9 @@ describe('All tests for the reinforcement learning agent', function(){
 
 		/* _discretize is necessary because, as mentioned in the workshop, the ML
 		   agent cannot learn unless there are a finite number of states, so
-		   it can return to them again and again.  Discretize takes an array 
+		   it can return to them again and again.  Discretize takes an array
 		   of continuous numbers, representing a state, and returns an array
-		   which has had those numbers smashed some of a set of close 
+		   which has had those numbers smashed some of a set of close
 		   integers.
 
 		   It takes as input one or two arrays.
@@ -35,7 +35,7 @@ describe('All tests for the reinforcement learning agent', function(){
 		   with the n-th element of the first adjusted to the nearest multiple
 		   of the n-th element of the second.
 		   */
-		it('_discretize function works', function(){
+		xit('_discretize function works', function(){
 			var d = rl.prototype._discretize;
 			expect(typeof d).to.equal('function');
 			expect(d([1.1,1.2,1.8,2])).to.eql([1,1,2,2])
@@ -51,10 +51,10 @@ describe('All tests for the reinforcement learning agent', function(){
 		   one can only get back a finite set of array values.
 
 		   Trim takes two arrays.  It returns an array, each element of which consists
-		   of the n-th value of the first array clamped between the absolute value 
+		   of the n-th value of the first array clamped between the absolute value
 		   and the negative absolute value of the n-th element of the second.
 		*/
-		it('_trim function works', function(){
+		xit('_trim function works', function(){
 			var d = rl.prototype._trim;
 			expect(typeof d).to.equal('function');
 			expect(d([1,2,3,4],[1,1,1,1])).to.eql([1,1,1,1]);
@@ -66,7 +66,7 @@ describe('All tests for the reinforcement learning agent', function(){
 		   out how to estimate the action-value function for a policy.  The easiest way to store
 		   action-value estimates in javascript is in an object, with a token for each state-action
 		   pair as the key for the items in the object.
-	
+
 
 			_tokenize is a function that takes a state and a move, and returns a single token
 		   used to identify this pair in the object defining the action-value function.
@@ -75,19 +75,19 @@ describe('All tests for the reinforcement learning agent', function(){
 
 		   There aren't any real tests for this, because a lot of the tweaking of the algorithm
 		   can go into how coarse of a discretization you want to use.  Keeping in mind that the
-		   state function looks like [location, angle, locationSpeed, angularSpeed], I've had a 
-		   lot of success using small rounding values (1) for the first two while using enormous 
+		   state function looks like [location, angle, locationSpeed, angularSpeed], I've had a
+		   lot of success using small rounding values (1) for the first two while using enormous
 		   rounding values (1000) for the second.  This effectively reduces the dimensionality of the
 		   state-space from 4d to 2d; while this is a loss of information, it means that it is much
 		   easier to search through the entirety of the state space.
 		 */
-		 it('_tokenize function works', function(){
+		 xit('_tokenize function works', function(){
 		 	var inst = new rl();
 		 	expect(typeof inst._tokenize).to.equal('function');
 		 })
 
 
-		/* 
+		/*
 		   The basic idea of _chooseBestMove is that you pass it a (1) state (an array of real numbers),
 		   an (2) array of all possible moves, and (3) a object which has of estimated action-values
 		   for particular states.  It will return the index of the best move in (2).
@@ -101,18 +101,18 @@ describe('All tests for the reinforcement learning agent', function(){
 		   It will need to round (state) to a discrete value before using it to access the previous
 		   action-value in actionValues.
 		*/
-		it('_chooseBestMove function works', function(){
+		xit('_chooseBestMove function works', function(){
 			//Is a function
 			var instance = new rl();
 			expect(typeof instance._chooseBestMove).to.equal('function');
 		});
 
-		it('_initalizeEpisode exists', function(){
+		xit('_initalizeEpisode exists', function(){
 			var instance = new rl();
 			expect(typeof instance._chooseBestMove).to.equal('function');
 		})
 
-		it('_continueEpisode exists', function(){
+		xit('_continueEpisode exists', function(){
 			var instance = new rl();
 			expect(typeof instance._chooseBestMove).to.equal('function');
 		})
@@ -126,7 +126,7 @@ describe('All tests for the reinforcement learning agent', function(){
 	   exceedingly useful later on.
 	 */
 
-	   it('has necessary variables', function(){
+	   xit('has necessary variables', function(){
 	   		var inst = new rl();
 	   		expect(inst.hasOwnProperty('epsilon')).to.equal(true);
 	   		expect(inst.hasOwnProperty('newEpisode')).to.equal(true);
@@ -153,9 +153,9 @@ describe('All tests for the reinforcement learning agent', function(){
 
 	   The function "decide" will need to initialize certain variables if this is the first step of a training episode.
 	   It will also need to store the state and reward of each step so that the end function can alter the
-	   action-value function in accord with them. 
+	   action-value function in accord with them.
 	*/
-	it('has a decide function', function(){
+	xit('has a decide function', function(){
 		var m =  new rl();
 		expect(typeof m.decide).to.equal('function')
 	});
@@ -165,11 +165,11 @@ describe('All tests for the reinforcement learning agent', function(){
 	   The state and the reward as as before.  The callback must be called when "decide" is done,
 	   or else things will break.
 
-	   The only difference is that it is the last step in an episode.  So it needs to count up the 
+	   The only difference is that it is the last step in an episode.  So it needs to count up the
 	   rewards following the first occurrence of each state, incorporate them into the averages for
-	   the action-value function, and 
+	   the action-value function, and
 	 */
-	it('has an end function', function(){
+	xit('has an end function', function(){
 		var m =  new rl();
 		expect(typeof m.end).to.equal('function')
 	});

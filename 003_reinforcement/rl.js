@@ -19,7 +19,12 @@ RLAgent.prototype.end = function(state, reward, cb){
 	cb && cb();
 }
 
+RLAgent.prototype._max = function(array, func){
+	let mappedArray = array.map(func);
+	let foundIndex = mappedArray.indexOf(Math.max.apply(null, mappedArray));
+	return array[foundIndex];
+}
+
 
 var module = module || {};
 module.exports = RLAgent;
-
